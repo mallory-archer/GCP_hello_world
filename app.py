@@ -1,21 +1,23 @@
 from flask import Flask, render_template, request
 import pandas as pd
-import numpy as np
-from bokeh.plotting import figure, show  # Assuming you're using show
-
+import matplotlib
+import matplotlib.pyplot as plt
+from io import BytesIO
+import base64
 
 app = Flask(__name__)
 
 
 def create_plot(data):
-    """Creates a Bokeh histogram of the 'rate_paid_to_carrier_dollars' column in a DataFrame.
+    """Creates a Matplotlib histogram of the 'rate_paid_to_carrier_dollars' column in a DataFrame.
 
     Args:
         data: pandas DataFrame containing trip data.
 
     Returns:
-        str: HTML representation of the Bokeh plot.
+        tuple: (image, data_available): BytesIO object containing the plot image and a boolean indicating data availability.
     """
+
     # Ensure data is a DataFrame
     if not isinstance(data, pd.DataFrame):
         raise ValueError("Input data must be a pandas DataFrame")
@@ -24,21 +26,25 @@ def create_plot(data):
     if 'rate_paid_to_carrier_dollars' not in data.columns:
         raise ValueError("Input DataFrame must contain a column named 'rate_paid_to_carrier_dollars'")
 
-    # Create a Bokeh figure object
-    p = figure(title="Distribution of Rate Paid to Carrier",
-               x_axis_label="Rate Paid to Carrier (Dollars)",
-               y_axis_label="Frequency")
+    # Use Agg backend for headless generation
+    matplotlib.use('Agg')
 
-    def create_hist_data(col_name, num_bins=10):
-        t_val, t_bin = np.histogram(data[col_name], bins=num_bins)
-        return pd.DataFrame(data={'count': t_val, col_name: (t_bin[:-1] + t_bin[1:]) / 2}), t_bin[1] - t_bin[0]
+    # Create a Matplotlib figure
+    fig, ax = plt.subplots()
+    ax.hist(data["rate_paid_to_carrier_dollars"], bins=10)
+    ax.set_title("Distribution of Rate Paid to Carrier")
+    ax.set_xlabel("Rate Paid to Carrier (Dollars)")
+    ax.set_ylabel("Frequency")
 
-    t_data, t_bin_size = create_hist_data("rate_paid_to_carrier_dollars")
-    p.vbar(x="rate_paid_to_carrier_dollars", top="count", width=t_bin_size, source=t_data, legend_label="Rate Distribution")
-    del t_data, t_bin_size
+    # Convert plot to PNG image
+    img_io = BytesIO()
+    fig.savefig(img_io, format='png')
+    img_io.seek(0)
 
-    # Convert Bokeh plot object to HTML representation
-    return show(p, return_unused=True)  # Get HTML without rendering
+    # Close the figure
+    plt.close(fig)
+
+    return img_io.getvalue()
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -47,11 +53,14 @@ def hello_world():
         user_input = request.form["user_input"]
         df = pd.read_csv('synthetic_data_set.csv')
 
-        # Generate plot (optional)
+        # Generate plot
         plot_data = create_plot(df)
 
+        # Encode plot data as base64
+        plot_image = base64.b64encode(plot_data).decode('utf-8')
+
         return render_template("index.html", message=f"You entered: {user_input}", data_available=True,
-                               plot_data=plot_data)
+                               plot_image=plot_image)
     else:
         return render_template("index.html", message="", data_available=False)
 

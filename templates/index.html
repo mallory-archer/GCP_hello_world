@@ -2,7 +2,6 @@
 <html>
 <head>
   <title>Hello World!</title>
-  <link rel="stylesheet" href="https://cdn.bokeh.org/release/bokeh-2.4.3.min.css" type="text/css" />
 </head>
 <body>
   <h1>Hello World!</h1>
@@ -13,12 +12,11 @@
   </form>
   <p>{{ message }}</p>
 
-  {% if data_available %}
+ {% if data_available %}
     <h2>Rate Distribution</h2>
 
-    <div id="plot_container"></div>
-
-    <script src="https://cdn.bokeh.org/release/bokeh-2.4.3.min.js"></script>
+    <img src="data:image/png;base64,{{ plot_image }}" alt="Rate Distribution Plot" />
   {% endif %}
+
 </body>
 </html>
