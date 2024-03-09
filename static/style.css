@@ -1,0 +1,86 @@
+/* Base styles for dark mode */
+body {
+  background-color: #1f2027;
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+/* Headings */
+h1, h2, h3 {
+  margin: 1rem 0;
+  font-weight: normal;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+/* Charts and Graphs */
+.chart,
+.graph {
+  border: 1px solid #333;
+  border-radius: 4px;
+  padding: 1rem;
+  box-sizing: border-box;
+  margin-bottom: 1rem;
+  background-color: #292a34;
+  color: #fff;
+}
+
+.chart svg,
+.graph svg {
+  width: 100%;
+  height: 250px;
+}
+
+/* Text colors and links */
+a {
+  color: #fff;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #87ceeb;
+}
+
+/* Additional color options */
+.primary {
+  color: #87ceeb;
+}
+
+.secondary {
+  color: #474a57;
+}
+
+.light-text {
+  color: #ddd;
+}
+
+/* Interactive elements */
+.chart:hover,
+.graph:hover {
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+.tooltip {
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.chart:hover .tooltip,
+.graph:hover .tooltip {
+  opacity: 1;
+}
