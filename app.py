@@ -24,19 +24,37 @@ def create_plot(data):
         raise ValueError("Input data must be a pandas DataFrame")
 
     # Check if 'rate_paid_to_carrier_dollars' column exists
-    if 'rate_paid_to_carrier_dollars' not in data.columns:
-        raise ValueError("Input DataFrame must contain a column named 'rate_paid_to_carrier_dollars'")
+    if not all(col in data.columns for col in ['rate_paid_to_carrier_dollars', 'rate_type']):
+        raise ValueError("Input DataFrame must contain columns named 'rate_paid_to_carrier_dollars' and 'rate_type'")
 
-    # Use Agg backend for headless generation
+        # Use Agg backend for headless generation
     matplotlib.use('Agg')
     plt.style.use(os.path.join('static', 'plot_styles.mplstyle'))
 
-    # Create a Matplotlib figure
-    fig, ax = plt.subplots()
-    ax.hist(data["rate_paid_to_carrier_dollars"], bins=10)
-    ax.set_title("Distribution of Rate Paid to Carrier")
-    ax.set_xlabel("Rate Paid to Carrier (Dollars)")
-    ax.set_ylabel("Frequency")
+    # Create a Matplotlib figure with two subplots
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 6))
+
+    # Histogram
+    # ax.hist(data["rate_paid_to_carrier_dollars"], bins=10)
+    # ax.set_title("Distribution of Rate Paid to Carrier")
+    # ax.set_xlabel("Rate Paid to Carrier (Dollars)")
+    # ax.set_ylabel("Frequency")
+
+    # Generate box plots for different rate types
+    data.boxplot(column="rate_paid_to_carrier_dollars", by="rate_type", ax=ax1)
+    ax1.set_title("Rate Paid to Carrier Distribution by Rate Type")
+    ax1.set_xlabel("Rate Type")
+    ax1.set_ylabel("Rate Paid to Carrier (Dollars)")
+
+    # Calculate daily average rate paid to carrier by rate type
+    daily_rates = data.groupby(['load_date', 'rate_type'])['rate_paid_to_carrier_dollars'].mean().unstack()
+
+    # Timeseries plot for average rate paid to carrier colored by rate type
+    daily_rates.plot(kind='line', ax=ax2)
+    ax2.set_title("Average Rate Paid to Carrier by Load Date and Rate Type")
+    ax2.set_xlabel("Load Date")
+    ax2.set_ylabel("Average Rate Paid to Carrier (Dollars)")
+    plt.xticks(rotation=45)  # Rotate x-axis labels for better readability with dates
 
     # Convert plot to PNG image
     img_io = BytesIO()

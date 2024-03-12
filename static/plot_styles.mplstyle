@@ -33,3 +33,5 @@ boxplot.capprops.color: white
 boxplot.flierprops.color: white
 boxplot.flierprops.markeredgecolor: white
 boxplot.whiskerprops.color: white
+
+grid.linestyle: None
