@@ -4,6 +4,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 from io import BytesIO
 import base64
+import os
 
 app = Flask(__name__)
 
@@ -28,6 +29,7 @@ def create_plot(data):
 
     # Use Agg backend for headless generation
     matplotlib.use('Agg')
+    plt.style.use(os.path.join('static', 'plot_styles.mplstyle'))
 
     # Create a Matplotlib figure
     fig, ax = plt.subplots()

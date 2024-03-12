@@ -1,8 +1,8 @@
 /* Base styles for dark mode */
 body {
-  background-color: #1f2027;
-  color: #fff;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: #1f2027; /* Dark Gray - Base background */
+  color: #fff; /* White - Text color */
+  font-family: Inter, sans-serif; /* Clean and modern font - Inter */
   font-size: 16px;
   margin: 0;
   padding: 0;
@@ -25,13 +25,13 @@ h2 {
 /* Charts and Graphs */
 .chart,
 .graph {
-  border: 1px solid #333;
+  border: 1px solid #333; /* Dark Gray - Border */
   border-radius: 4px;
   padding: 1rem;
   box-sizing: border-box;
   margin-bottom: 1rem;
-  background-color: #292a34;
-  color: #fff;
+  background-color: #292a34; /* Darker Gray - Chart background */
+  color: #fff; /* White - Text color within charts */
 }
 
 .chart svg,
@@ -42,25 +42,33 @@ h2 {
 
 /* Text colors and links */
 a {
-  color: #fff;
+  color: #87ceeb; /* Light Blue - Link color */
   text-decoration: none;
 }
 
 a:hover {
-  color: #87ceeb;
+  color: #474a57; /* Dark Gray-Blue - Link hover color */
 }
 
-/* Additional color options */
+/* Updated color options based on the chosen palette */
 .primary {
-  color: #87ceeb;
+  color: #007bff; /* Navy Blue - Primary color */
 }
 
 .secondary {
-  color: #474a57;
+  color: #474a57; /* Dark Gray-Blue - Secondary color */
 }
 
 .light-text {
-  color: #ddd;
+  color: #ccc; /* Light Gray - Less important text color */
+}
+
+.accent {
+  color: #fd7e14; /* Orange - Accent color */
+}
+
+.accent-green {
+  color: #28a745; /* Green - Accent color */
 }
 
 /* Interactive elements */
@@ -71,8 +79,8 @@ a:hover {
 
 .tooltip {
   position: absolute;
-  background-color: #fff;
-  border: 1px solid #ddd;
+  background-color: #fff; /* White - Tooltip background */
+  border: 1px solid #ddd; /* Light Gray - Tooltip border */
   border-radius: 4px;
   padding: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);

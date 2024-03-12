@@ -1,0 +1,35 @@
+# Set black background default line colors to white.
+
+# Font Styles
+font.family         : sans-serif
+font.sans-serif     : DejaVu Sans   #, Bitstream Vera Sans, Computer Modern Sans Serif, Lucida Grande, Verdana, Geneva, Lucid, Arial, Helvetica, Avant Garde, sans-serif
+font.size           : 16
+
+lines.color: white
+patch.edgecolor: white
+
+text.color: white
+
+axes.facecolor: 1f2027
+axes.edgecolor: white
+axes.labelcolor: white
+# axes.prop_cycle: cycler('color', ['8dd3c7', 'feffb3', 'bfbbd9', 'fa8174', '81b1d2', 'fdb462', 'b3de69', 'bc82bd', 'ccebc4', 'ffed6f'])
+axes.prop_cycle: cycler('color', ['007bff', 'fd7e14', '28a745', '87ceeb', '8dd3c7', 'feffb3', 'bfbbd9', 'fa8174', '81b1d2', 'fdb462', 'b3de69', 'bc82bd', 'ccebc4', 'ffed6f'])
+
+xtick.color: white
+ytick.color: white
+
+grid.color: white
+
+figure.facecolor: 292a34
+figure.edgecolor: 292a34
+
+savefig.facecolor: 1f2027
+savefig.edgecolor: 1f2027
+
+### Boxplots
+boxplot.boxprops.color: white
+boxplot.capprops.color: white
+boxplot.flierprops.color: white
+boxplot.flierprops.markeredgecolor: white
+boxplot.whiskerprops.color: white
